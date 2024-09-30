@@ -1,0 +1,75 @@
+<!DOCTYPE html>  
+<html lang="ja">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>高血圧による病気クイズ</title>  
+    <style>  
+        body { font-family: Arial, sans-serif; margin: 20px; }  
+        h1 { color: #2c3e50; }  
+        .quiz-container { margin-bottom: 20px; }  
+        .quiz { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }  
+        button { margin-top: 10px; }  
+        .explanation { display: none; background-color: #e0ffe0; padding: 10px; border-left: 4px solid #28a745; }  
+    </style>  
+</head>  
+<body>  
+
+<h1>高血圧による病気クイズ</h1>  
+
+<div id="quizContainer"></div>  
+<button onclick="showResults()">結果を見る</button>  
+<div id="resultContainer" style="display:none;"></div>  
+
+<script>  
+    const quizzes = [  
+        { question: "1. 高血圧はどの病気と関連が強いですか？", answers: ["糖尿病", "心血管病", "喘息"], correct: 1, explanation: "高血圧は心血管病（心臓病や脳卒中など）との関連が強いです。" },  
+        { question: "2. 高血圧が引き起こすことのある病気は？", answers: ["腎不全", "関節炎", "感染症"], correct: 0, explanation: "高血圧は腎不全のリスクを高めることがあります。" },  
+        { question: "3. 高血圧はどの臓器に特に影響を与えるか？", answers: ["心臓", "肺", "肝臓"], correct: 0, explanation: "心臓は高血圧によって特に影響を受けやすい臓器です。" },  
+        { question: "4. 高血圧が進行すると何が起こるか？", answers: ["脳卒中", "風邪をひきやすくなる", "骨が弱くなる"], correct: 0, explanation: "高血圧が進行すると、脳卒中のリスクが高まります。" },  
+        { question: "5. 高血圧は主にどのような生活習慣によって引き起こされるか？", answers: ["運動不足", "過剰な睡眠", "バランスの良い食事"], correct: 0, explanation: "運動不足は高血圧の一因とされています。" },  
+        { question: "6. 高血圧によって引き起こされる目の病気は何か？", answers: ["白内障", "網膜症", "緑内障"], correct: 1, explanation: "高血圧は網膜症の原因となることがあります。" },  
+        { question: "7. 高血圧が関与する心臓病の種類は？", answers: ["狭心症", "気管支喘息", "アレルギー"], correct: 0, explanation: "高血圧は狭心症を引き起こす可能性があります。" },  
+        { question: "8. 高血圧が原因で発生する脳の疾患はどれか？", answers: ["脳膜炎", "脳梗塞", "頭痛"], correct: 1, explanation: "高血圧は脳梗塞のリスクを増加させる要因です。" },  
+        { question: "9. 高血圧によって影響を受ける静脈の病気は？", answers: ["静脈瘤", "痔", "血栓症"], correct: 2, explanation: "高血圧は血栓症のリスクを高める要因です。" },  
+        { question: "10. 高血圧を予防するために重要な要素は何か？", answers: ["運動", "ストレス", "喫煙"], correct: 0, explanation: "定期的な運動は高血圧の予防に重要です。" },  
+    ];  
+
+    function loadQuizzes() {  
+        const quizContainer = document.getElementById("quizContainer");  
+        quizzes.forEach((quiz, index) => {  
+            const quizDiv = document.createElement("div");  
+            quizDiv.className = "quiz";  
+            quizDiv.innerHTML = `  
+                <p>${quiz.question}</p>  
+                <form>  
+                    ${quiz.answers.map((answer, i) => `  
+                        <div>  
+                            <input type="radio" name="quiz${index}" value="${i}" id="quiz${index}answer${i}">  
+                            <label for="quiz${index}answer${i}">${answer}</label>  
+                        </div>  
+                    `).join('')}  
+                </form>  
+                <button onclick="showExplanation(${index})">解説を見る</button>  
+                <div class="explanation" id="explanation${index}">${quiz.explanation}</div>  
+            `;  
+            quizContainer.appendChild(quizDiv);  
+        });  
+    }  
+
+    function showExplanation(index) {  
+        const explanationDiv = document.getElementById(`explanation${index}`);  
+        explanationDiv.style.display = explanationDiv.style.display === "block" ? "none" : "block";  
+    }  
+
+    function showResults() {  
+        const resultContainer = document.getElementById("resultContainer");  
+        resultContainer.style.display = "block";  
+        resultContainer.innerHTML = "<h2>結果</h2><p>各自の回答をチェックしてください。</p>";  
+    }  
+
+    loadQuizzes();  
+</script>  
+
+</body>  
+</html>
